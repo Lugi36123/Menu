@@ -2,11 +2,12 @@ package org.lugi.learnAtt.InvControll
 
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
-import org.jetbrains.annotations.NotNull
+import org.bukkit.inventory.ItemStack
 
-object InvWindow{
+object Window{
     /**가상 인벤토리를 만듭니다.**/
     fun createInventory(player: Player, line: Int, component: Component){
         var inv = Bukkit.createInventory(null, line * 9, component)
@@ -37,5 +38,20 @@ object InvWindow{
     /**가상 인벤토리를 엽니다.**/
     fun openInventory(p: Player){
         p.openInventory(getInventory(p) as Inventory)
+    }
+
+    /**가상 인벤토리의 슬롯을 조정합니다.**/
+    fun setSlot(p: Player, x: Int, y: Int, i : ItemStack){
+        getInventory(p).apply {
+            this?.setItem(XPlusY(x, y), i)
+        }
+    }
+
+    private fun XPlusY(x: Int, y: Int): Int{
+        if ((x + y) != 0){
+            return x + (y * 9)
+        }
+
+        return 0
     }
 }

@@ -1,32 +1,16 @@
 package org.lugi.learnAtt
 
 import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.SkullType
-import org.bukkit.attribute.Attribute
-import org.bukkit.attribute.AttributeModifier
-import org.bukkit.block.Biome
-import org.bukkit.block.Block
-import org.bukkit.block.Skull
-import org.bukkit.block.data.BlockData
 import org.bukkit.entity.Player
-import org.bukkit.entity.Pose
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
-import org.bukkit.event.player.PlayerChangedMainHandEvent
-import org.bukkit.event.player.PlayerInteractEntityEvent
-import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
-import org.lugi.learnAtt.InvControll.InvWindow
-import org.lugi.learnAtt.InvControll.invList
-import java.util.UUID
+import org.lugi.learnAtt.InvControll.Window
 
 class LearnAtt : JavaPlugin() {
 
@@ -46,8 +30,12 @@ class LearnAtt : JavaPlugin() {
 
                                 e.isCancelled = true
 
-                                InvWindow.createInventory(e.player, 6, Component.text("메뉴"))
-                                InvWindow.openInventory(e.player)
+                                Window.createInventory(e.player, 5, Component.text("메뉴"))
+
+                                Window.setSlot(e.player as Player, 1, 2,
+                                    ItemStack(Material.PAPER))
+
+                                Window.openInventory(e.player)
                             }
                         }
                     }
@@ -57,8 +45,8 @@ class LearnAtt : JavaPlugin() {
                 object : Listener {
                     @EventHandler
                     fun onClose(e: InventoryCloseEvent) {
-                        if (InvWindow.getInventory(e.player as Player) == e.inventory){
-                            InvWindow.deleteInventory(e.player as Player)
+                        if (Window.getInventory(e.player as Player) == e.inventory){
+                            Window.deleteInventory(e.player as Player)
                         }
                     }
                 }, serverInstance)
@@ -67,7 +55,7 @@ class LearnAtt : JavaPlugin() {
                 object : Listener {
                     @EventHandler
                     fun onClick(e: InventoryClickEvent){
-                        if (InvWindow.getInventory(e.whoClicked as Player) == e.inventory){
+                        if (Window.getInventory(e.whoClicked as Player) == e.inventory){
 
                         }
                     }
