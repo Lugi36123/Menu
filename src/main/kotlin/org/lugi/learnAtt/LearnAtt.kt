@@ -1,5 +1,6 @@
 package org.lugi.learnAtt
 
+import com.sun.org.apache.bcel.internal.generic.IFGE
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
@@ -82,7 +83,9 @@ class LearnAtt : JavaPlugin(){
                     @EventHandler
                     fun onClick(e: InventoryClickEvent){
                         if (getInventory(e.whoClicked as Player) == e.inventory){
-                            e.isCancelled = true
+                            if (e.rawSlot == e.inventory.size - 1){
+                                e.isCancelled = true
+                            }
                         }
                     }
                 }
