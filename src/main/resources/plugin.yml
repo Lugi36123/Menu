@@ -1,0 +1,4 @@
+name: Menu
+version: '1.0-SNAPSHOT'
+main: org.lugi.learnAtt.LearnAtt
+api-version: '1.21'
